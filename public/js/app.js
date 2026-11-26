@@ -26,7 +26,19 @@ async function loadEvents() {
     if (!response.ok) throw new Error(`Unable to load events: ${response.status}`);
 
     events = await response.json();
+
+    // Get today's date at midnight
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Remove events that have already passed
+    events = events.filter(event =>
+        new Date(`${event.date}T00:00:00`) >= today
+    );
+
+    // Sort upcoming events chronologically
     events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     renderEvents(events);
     renderFeaturedEvent(events);
   } catch (error) {
@@ -100,14 +112,8 @@ function renderFeaturedEvent(eventList) {
   const meta = document.querySelector("#featuredEventMeta");
   if (!section || !image || !title || !description || !meta) return;
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const upcomingEvents = eventList
-    .filter(event => new Date(`${event.date}T00:00:00`) >= today)
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  const nextEvent = upcomingEvents[0];
+  const nextEvent = eventList[0];
+  
   if (!nextEvent) {
     section.classList.add("hidden");
     return;
