@@ -59,4 +59,16 @@
 "sizes": ["S", "M", "L", "XL", "2XL"],
 "available": true
 }
+{
+"id": 6,
+"name": "Hope Bracelet",
+"category": "Accessories",
+"price": 25,
+"featured": 6,
+"image": "/images/products/bracelet.jpeg",
+"imageAlt": "Angie Woon Hope Society bracelet",
+"description": "A beautiful purple beaded bracelet featuring silver-tone and purple heart accents, representing the Angie Woon Hope Society.",
+"sizes": [],
+"available": true
+}
 ]
